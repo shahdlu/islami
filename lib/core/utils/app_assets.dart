@@ -39,4 +39,6 @@ class AppAssets {
   static const String playIcon = "assets/images/play_icon.png";
   static const String sebha = "assets/images/sebha_image.png";
   static const String soundWaves = "assets/images/sound_waves.png";
+  static const String sebhaDecorative = "assets/images/sebha_decorative.png";
+  static const String sebhaBeads = "assets/images/sebha_beads.png";
 }
