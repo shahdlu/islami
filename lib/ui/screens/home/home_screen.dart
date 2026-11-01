@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SafeArea(
             child: Column(
+              spacing: height * 0.017,
               children: [
                 Image.asset(AppAssets.appLogo),
                 Expanded(child: tabList[selectedIndex]),
