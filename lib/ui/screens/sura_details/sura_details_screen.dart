@@ -5,7 +5,7 @@ import 'package:islami/core/utils/app_colors.dart';
 import 'package:islami/core/utils/app_styles.dart';
 import 'package:islami/models/quran_resources.dart';
 import 'package:islami/ui/screens/home/common/main_loading_widget.dart';
-import 'package:islami/ui/screens/sura_details/sura_content.dart';
+import 'package:islami/ui/screens/home/common/content_item.dart';
 
 import '../../../core/utils/app_size_utils.dart';
 
@@ -56,7 +56,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
             child: verses.isEmpty ?
                 MainLoadingWidget()
                 :
-                SingleChildScrollView(child: SuraContent(content: verses))
+                SingleChildScrollView(child: ContentItem(content: verses))
           ),
           Image.asset(AppAssets.bottomDecorationImage),
         ],
