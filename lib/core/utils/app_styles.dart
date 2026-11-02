@@ -17,6 +17,11 @@ class AppStyles {
       fontWeight: FontWeight.bold,
       color: AppColors.primaryColor
   );
+  static TextStyle bold24OffWhite = TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: AppColors.offWhite
+  );
   static TextStyle bold16OffWhite = TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
