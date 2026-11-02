@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islami/core/utils/app_assets.dart';
 import 'package:islami/core/utils/app_colors.dart';
+import 'package:islami/core/utils/app_routes.dart';
 import 'package:islami/core/utils/app_styles.dart';
 import 'package:islami/models/quran_resources.dart';
 import 'package:islami/ui/screens/home/tabs/quran/widget/most_recent_widget.dart';
@@ -29,8 +30,8 @@ class QuranTab extends StatelessWidget {
           MostRecentWidget(),
           Text("Suras List", style: AppStyles.bold16OffWhite,),
           _buildSuraSection(
-            onTab: () {
-              
+            onSuraClick: (index) {
+              Navigator.of(context).pushNamed(AppRoutes.suraDetails1,arguments: index);
             },
           ),
         ],
@@ -58,12 +59,14 @@ class QuranTab extends StatelessWidget {
       ),
     );
   }
-  Widget _buildSuraSection({required VoidCallback onTab}){
+  Widget _buildSuraSection({required void Function(int) onSuraClick}){
     return Expanded(
       child: ListView.separated(
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: onTab,
+            onTap: () {
+              onSuraClick(index);
+            },
               child: SuraItem(index: index,
               ));
         },

@@ -12,6 +12,13 @@ class AppTheme {
       selectedItemColor: AppColors.white,
       unselectedItemColor: AppColors.black,
       selectedLabelStyle: AppStyles.bold12White
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: AppColors.black,
+      iconTheme: IconThemeData(
+        color: AppColors.primaryColor
+      ),
+      centerTitle: true,
     )
   );
 }
