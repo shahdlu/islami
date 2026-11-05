@@ -6,8 +6,10 @@ import 'package:islami/core/utils/app_styles.dart';
 import 'package:islami/models/quran_resources.dart';
 import 'package:islami/ui/screens/home/common/main_loading_widget.dart';
 import 'package:islami/ui/screens/home/common/content_item.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/utils/app_size_utils.dart';
+import '../../../providers/most_recent_provider.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   const SuraDetailsScreen({super.key});
@@ -18,9 +20,11 @@ class SuraDetailsScreen extends StatefulWidget {
 
 class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
   String verses = "";
+  late MostRecentProvider mostRecentProvider;
   @override
   Widget build(BuildContext context) {
     int index = ModalRoute.of(context)?.settings.arguments as int;
+    mostRecentProvider = Provider.of(context);
     if(verses.isEmpty){
       loadSuraFile(index);
     }
@@ -63,7 +67,11 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
       ),
     );
   }
-
+  @override
+  dispose(){
+    super.dispose();
+    mostRecentProvider.getLastSuraIndex();
+  }
   Future<void> loadSuraFile(int index) async{
     String fileContent = await rootBundle.loadString("assets/files/quran/${index + 1}.txt");
     List<String> lines = fileContent.split("\n");

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islami/core/shared_prefs_utils.dart';
 import 'package:islami/core/utils/app_assets.dart';
 import 'package:islami/core/utils/app_colors.dart';
 import 'package:islami/core/utils/app_routes.dart';
@@ -30,20 +31,22 @@ class _QuranTabState extends State<QuranTab> {
     height = context.height;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: height * 0.02,
-        children: [
-          _builtSearchSection(),
-          MostRecentWidget(),
-          Text("Suras List", style: AppStyles.bold16OffWhite),
-          _buildSuraSection(
-            onSuraClick: (index) {
-              Navigator.of(context)
-                  .pushNamed(AppRoutes.suraDetails1, arguments: index);
-            },
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: height * 0.02,
+          children: [
+            _builtSearchSection(),
+            MostRecentWidget(),
+            Text("Suras List", style: AppStyles.bold16OffWhite),
+            _buildSuraSection(
+              onSuraClick: (index) {
+                Navigator.of(context)
+                    .pushNamed(AppRoutes.suraDetails1, arguments: index);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -73,29 +76,30 @@ class _QuranTabState extends State<QuranTab> {
   }
 
   Widget _buildSuraSection({required void Function(int) onSuraClick}) {
-    return Expanded(
-      child: filterList.isEmpty ?
-          Center(child: Text("No Sura Name Found",style: AppStyles.bold24OffWhite,),)
-          :
-        ListView.separated(
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              onSuraClick(filterList[index]);
-            },
-            child: SuraItem(index: filterList[index]),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            thickness: 2,
-            height: height * 0.04,
-            indent: width * 0.08,
-            endIndent: width * 0.08,
-          );
-        },
-        itemCount: filterList.length,
-      ),
+    return filterList.isEmpty ?
+        Center(child: Text("No Sura Name Found",style: AppStyles.bold24OffWhite,),)
+        :
+      ListView.separated(
+        physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return InkWell(
+          onTap: () {
+            saveLastSuraIndex(filterList[index]);
+            onSuraClick(filterList[index]);
+          },
+          child: SuraItem(index: filterList[index]),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return Divider(
+          thickness: 2,
+          height: height * 0.04,
+          indent: width * 0.08,
+          endIndent: width * 0.08,
+        );
+      },
+      itemCount: filterList.length,
     );
   }
 
